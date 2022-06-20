@@ -1,7 +1,9 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import CounterItem from "./components/CounterItem.vue";
+</script>
 
 <template>
-  <div>Tests here :)</div>
+  <CounterItem />
 </template>
 
 <style></style>
