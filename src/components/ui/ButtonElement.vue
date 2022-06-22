@@ -55,7 +55,7 @@ defineProps<ButtonProps>();
   top: 0;
   opacity: 0;
   box-shadow: 0px 6px 10px 3px #39a9db87;
-  transition-property: opacity transform;
+  transition-property: opacity, transform;
 }
 
 .wrapper,
