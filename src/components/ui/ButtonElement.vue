@@ -1,9 +1,13 @@
 <script setup lang="ts">
-import { ref, useCssModule } from "vue";
+import { useCssModule, type ButtonHTMLAttributes } from "vue";
 const style = useCssModule("button");
 
-const text = ref("Click me!");
-const disabled = ref(false);
+type ButtonProps = {
+  disabled?: boolean;
+  text?: string;
+};
+
+defineProps<ButtonProps>();
 </script>
 
 <template>

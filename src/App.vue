@@ -5,7 +5,7 @@ import ButtonElement from "./components/ui/ButtonElement.vue";
 
 <template>
   <CounterItem />
-  <ButtonElement />
+  <ButtonElement text="Click me" />
 </template>
 
 <style>
