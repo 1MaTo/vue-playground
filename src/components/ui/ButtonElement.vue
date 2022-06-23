@@ -31,7 +31,6 @@ defineProps<ButtonProps>();
   padding: 0;
   outline: none;
   border: none;
-  border-radius: 10px;
   background: none;
   font-size: 1rem;
   color: white;
@@ -61,7 +60,7 @@ defineProps<ButtonProps>();
 .wrapper,
 .button-base,
 .button-base::after {
-  border-radius: 10px;
+  border-radius: 0.625em;
 }
 
 .hidden-text {

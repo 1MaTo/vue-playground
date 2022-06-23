@@ -20,6 +20,8 @@ const handleValueChange = (e: Event) => {
   uncontrolledInput.value = value;
   emit("update:modelValue", value);
 };
+
+const isPressed = ref(false);
 </script>
 
 <template>
@@ -29,11 +31,14 @@ const handleValueChange = (e: Event) => {
       {
         [style.filled]: uncontrolledInput,
         [style.disabled]: $props.disabled,
+        [style.pressed]: isPressed,
       },
     ]"
   >
     <div :class="style['float-wrapper']">
       <input
+        @keydown="() => (isPressed = true)"
+        @keyup="() => (isPressed = false)"
         :value="modelValue || uncontrolledInput"
         :="$attrs"
         :disabled="$props.disabled"
@@ -72,7 +77,6 @@ const handleValueChange = (e: Event) => {
   z-index: -1;
   width: 100%;
   height: 100%;
-  border-radius: 10px;
   left: 0;
   top: 0;
   opacity: 0;
@@ -113,7 +117,6 @@ const handleValueChange = (e: Event) => {
   width: 100%;
   position: absolute;
   border: 1px solid var(--color-main-dark);
-  border-radius: 10px;
   margin: 0px;
   padding: 0px;
   z-index: -1;
@@ -121,14 +124,19 @@ const handleValueChange = (e: Event) => {
   transition-timing-function: cubic-bezier(0, 1, 1, 1);
 }
 
+.float-wrapper::after,
+.border {
+  border-radius: 0.625em;
+}
+
 .input,
 .border {
-  padding: 16px 16px;
+  padding: 1em;
 }
 
 .legend {
   height: 0px;
-  margin-left: -6px;
+  margin-left: -0.375em;
   visibility: hidden;
   width: auto;
   max-width: 0.01px;
@@ -139,7 +147,7 @@ const handleValueChange = (e: Event) => {
 }
 
 .legend-text {
-  padding: 0px 3px;
+  padding: 0px 0.1875em;
 }
 
 .label {
@@ -152,7 +160,7 @@ const handleValueChange = (e: Event) => {
   max-width: calc(100% - 32px);
   font-family: "Arial";
   pointer-events: none;
-  transform: translate(16px, 16px);
+  transform: translate(1em, 1em);
   transition-property: transform, max-width, color;
   transition-duration: 0.3s;
   transition-timing-function: cubic-bezier(0, 1, 1, 1);
@@ -183,9 +191,13 @@ const handleValueChange = (e: Event) => {
   border-color: var(--color-main-light);
 }
 
+.wrapper:hover:not(.disabled) .label {
+  color: var(--color-main-light);
+}
+
 .wrapper:hover:not(.disabled) .float-wrapper,
 .wrapper:focus-within:not(.disabled) .float-wrapper {
-  transform: translateY(-6px);
+  transform: translateY(-0.375em);
 }
 
 .wrapper:hover:not(.disabled) .float-wrapper::after,
@@ -202,7 +214,7 @@ const handleValueChange = (e: Event) => {
 
 .wrapper:focus-within:not(.disabled) .label {
   color: var(--color-main-dark);
-  transform: translate(16px, -7px) scale(0.8);
+  transform: translate(1em, -0.4375em) scale(0.8);
   max-width: 100%;
 }
 
@@ -215,7 +227,7 @@ const handleValueChange = (e: Event) => {
 /* Active */
 
 .wrapper:active:not(.disabled) .float-wrapper {
-  transform: translateY(-2px);
+  transform: translateY(-0.125em);
 }
 
 /* Filled */
@@ -227,6 +239,12 @@ const handleValueChange = (e: Event) => {
 
 .filled .label {
   max-width: 100%;
-  transform: translate(16px, -7px) scale(0.8);
+  transform: translate(1em, -0.4375em) scale(0.8);
+}
+
+/* Pressed */
+
+.wrapper:not(.disabled).pressed .float-wrapper {
+  transform: translateY(-0.25em);
 }
 </style>
