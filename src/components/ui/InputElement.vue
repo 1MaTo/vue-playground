@@ -6,6 +6,7 @@ const props = defineProps<{
   label?: string;
   modelValue?: any;
   disabled?: boolean;
+  class?: string;
 }>();
 
 const uncontrolledInput = ref(props.modelValue || "");
@@ -28,6 +29,7 @@ const isPressed = ref(false);
   <div
     :class="[
       style.wrapper,
+      $props.class,
       {
         [style.filled]: uncontrolledInput,
         [style.disabled]: $props.disabled,
@@ -51,7 +53,7 @@ const isPressed = ref(false);
           <span :class="style['legend-text']">{{ label }}</span>
         </legend>
       </fieldset>
-      <span v-if="label" :class="style.label">{{ label }}</span>
+      <label v-if="label" :class="style.label">{{ label }}</label>
     </div>
   </div>
 </template>
@@ -59,6 +61,8 @@ const isPressed = ref(false);
 <style module="input">
 .wrapper {
   display: inline-block;
+  font-size: 1rem;
+  min-width: 200px;
 }
 
 .wrapper.disabled .input {
@@ -66,6 +70,7 @@ const isPressed = ref(false);
 }
 
 .float-wrapper {
+  width: 100%;
   position: relative;
   display: inline-block;
   transition-property: transform;
@@ -91,8 +96,10 @@ const isPressed = ref(false);
 }
 
 .input {
+  width: 100%;
+  box-sizing: border-box;
   outline: none;
-  font-size: 1rem;
+  font-size: 1em;
   border: none;
   background-color: transparent;
   color: var(--color-font);
@@ -116,7 +123,7 @@ const isPressed = ref(false);
   height: 100%;
   width: 100%;
   position: absolute;
-  border: 1px solid var(--color-main-dark);
+  border: 0.063em solid var(--color-main-dark);
   margin: 0px;
   padding: 0px;
   z-index: -1;
@@ -135,19 +142,19 @@ const isPressed = ref(false);
 }
 
 .legend {
-  height: 0px;
-  margin-left: -0.375em;
+  height: 0.3em;
+  margin-left: -0.385em;
   visibility: hidden;
   width: auto;
   max-width: 0.01px;
   padding: 0px;
-  font-size: 0.81em;
+  font-size: 0.787em;
   transition-duration: 0.2s;
   transition-timing-function: cubic-bezier(0, 0, 0, 1.2);
 }
 
 .legend-text {
-  padding: 0px 0.1875em;
+  padding: 0px 0.3875em;
 }
 
 .label {
@@ -157,7 +164,7 @@ const isPressed = ref(false);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  max-width: calc(100% - 32px);
+  max-width: calc(100% - 2em);
   font-family: "Arial";
   pointer-events: none;
   transform: translate(1em, 1em);
@@ -209,19 +216,11 @@ const isPressed = ref(false);
 
 .wrapper:focus-within:not(.disabled) .border {
   border-color: var(--color-main-dark);
-  border-width: 2px;
+  border-width: 0.125em;
 }
 
 .wrapper:focus-within:not(.disabled) .label {
   color: var(--color-main-dark);
-  transform: translate(1em, -0.4375em) scale(0.8);
-  max-width: 100%;
-}
-
-.wrapper:focus-within:not(.disabled) .legend,
-.filled .legend {
-  transition-timing-function: cubic-bezier(0, 0.25, 1, 1);
-  max-width: 100%;
 }
 
 /* Active */
@@ -237,9 +236,19 @@ const isPressed = ref(false);
   opacity: 1;
 }
 
-.filled .label {
+/* Filled or Focus */
+
+.filled .label,
+.wrapper:focus-within:not(.disabled) .label {
+  width: calc((100% * 1.21) - 2em);
+  max-width: unset;
+  transform: translate(1.06em, -0.3675em) scale(0.79);
+}
+
+.wrapper:focus-within:not(.disabled) .legend,
+.filled .legend {
+  transition-timing-function: cubic-bezier(0, 0.25, 1, 1);
   max-width: 100%;
-  transform: translate(1em, -0.4375em) scale(0.8);
 }
 
 /* Pressed */
