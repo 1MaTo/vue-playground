@@ -1,14 +1,9 @@
 <script setup lang="ts">
-import ButtonElement from "./components/ui/ButtonElement.vue";
-import InputElement from "./components/ui/InputElement.vue";
+import LoginElement from "./components/ui/LoginElement.vue";
 </script>
 
 <template>
-  <InputElement
-    label="Label sooooo loong"
-    placeholder="Enter some text here"
-  />
-  <ButtonElement text="Click me" />
+  <LoginElement />
 </template>
 
 <style>
@@ -33,5 +28,6 @@ html {
 
 body {
   background: #f1f0ea;
+  margin: 0px;
 }
 </style>
