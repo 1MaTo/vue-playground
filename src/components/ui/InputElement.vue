@@ -23,6 +23,12 @@ const handleValueChange = (e: Event) => {
 };
 
 const isPressed = ref(false);
+
+const handlePressChange = (e: KeyboardEvent) => {
+  if (e.key === "Tab") return;
+  const pressed = e.type === "keydown";
+  isPressed.value = pressed;
+};
 </script>
 
 <template>
@@ -31,7 +37,7 @@ const isPressed = ref(false);
       style.wrapper,
       $props.class,
       {
-        [style.filled]: uncontrolledInput,
+        [style.filled]: uncontrolledInput || $props.modelValue,
         [style.disabled]: $props.disabled,
         [style.pressed]: isPressed,
       },
@@ -39,9 +45,9 @@ const isPressed = ref(false);
   >
     <div :class="style['float-wrapper']">
       <input
-        @keydown="() => (isPressed = true)"
-        @keyup="() => (isPressed = false)"
-        :value="modelValue || uncontrolledInput"
+        @keydown="handlePressChange"
+        @keyup="handlePressChange"
+        :value="modelValue === undefined ? uncontrolledInput : modelValue"
         :="$attrs"
         :disabled="$props.disabled"
         :class="[style.input, { [style['with-label']]: label }]"
@@ -85,7 +91,7 @@ const isPressed = ref(false);
   left: 0;
   top: 0;
   opacity: 0;
-  box-shadow: 0px 6px 10px -2px #39a9db87;
+  box-shadow: 0px 34px 70px -30px #39a9db87;
   transition-property: opacity, transform;
 }
 
@@ -227,6 +233,10 @@ const isPressed = ref(false);
 
 .wrapper:active:not(.disabled) .float-wrapper {
   transform: translateY(-0.125em);
+}
+
+.wrapper:active:not(.disabled) .float-wrapper::after {
+  opacity: 0.5;
 }
 
 /* Filled */
