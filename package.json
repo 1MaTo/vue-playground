@@ -1,6 +1,7 @@
 {
   "name": "vue-playground",
   "version": "0.0.0",
+  "homepage": "https://1mato.github.io/vue-playground",
   "scripts": {
     "dev": "vite",
     "dev-host": "vite --host",
