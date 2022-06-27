@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, useCssModule } from "vue";
+import { onMounted, ref, useCssModule } from "vue";
 const style = useCssModule("input");
 
 const props = defineProps<{
@@ -8,6 +8,8 @@ const props = defineProps<{
   disabled?: boolean;
   class?: string;
 }>();
+
+const inputRef = ref(null);
 
 const uncontrolledInput = ref(props.modelValue || "");
 
@@ -29,6 +31,8 @@ const handlePressChange = (e: KeyboardEvent) => {
   const pressed = e.type === "keydown";
   isPressed.value = pressed;
 };
+
+defineExpose({ inputRef });
 </script>
 
 <template>
@@ -45,6 +49,7 @@ const handlePressChange = (e: KeyboardEvent) => {
   >
     <div :class="style['float-wrapper']">
       <input
+        ref="inputRef"
         @keydown="handlePressChange"
         @keyup="handlePressChange"
         :value="modelValue === undefined ? uncontrolledInput : modelValue"
